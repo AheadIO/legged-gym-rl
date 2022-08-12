@@ -75,11 +75,24 @@ class A1RoughCfg( LeggedRobotCfg ):
             torques = -0.0002
             dof_pos_limits = -10.0
 
+class A1FlatCfg(A1RoughCfg):
+    class env( A1RoughCfg.env ):
+        num_observations = 48
+  
+    class terrain( A1RoughCfg.terrain ):
+        mesh_type = 'plane'
+        measure_heights = False
+
 class A1RoughCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
         entropy_coef = 0.01
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'rough_a1'
+        
+class A1FlatCfgPPO( A1RoughCfgPPO ):
+    class runner( A1RoughCfgPPO.runner ):
+        experiment_name = 'rough_a1'
+        max_iterations = 500
 
   
